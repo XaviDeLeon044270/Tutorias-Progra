@@ -31,7 +31,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         button1 = new javax.swing.JButton();
         button2 = new javax.swing.JButton();
         button3 = new javax.swing.JButton();
-        button4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro Clínica Veterinaria");
@@ -66,14 +65,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        button4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        button4.setText("4. Crear Base de Datos");
-        button4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button4ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout PanelPrincipalLayout = new javax.swing.GroupLayout(PanelPrincipal);
         PanelPrincipal.setLayout(PanelPrincipalLayout);
         PanelPrincipalLayout.setHorizontalGroup(
@@ -82,7 +73,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(PanelPrincipalLayout.createSequentialGroup()
                 .addGap(110, 110, 110)
                 .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -99,8 +89,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(103, Short.MAX_VALUE))
         );
 
@@ -134,11 +122,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
         // TODO add your handling code here:
+        EliminarMascotas ventanaEliminarMascotas = new EliminarMascotas();
+        
+        ventanaEliminarMascotas.setVisible(true);
     }//GEN-LAST:event_button3ActionPerformed
 
-    private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_button4ActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -146,7 +135,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton button1;
     private javax.swing.JButton button2;
     private javax.swing.JButton button3;
-    private javax.swing.JButton button4;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -152,14 +152,14 @@ public class ConsultarMascotas extends javax.swing.JFrame {
 
     private void botonBuscarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarNombreActionPerformed
         // TODO add your handling code here:
-        BuscarMascotas ventanaBuscar = new BuscarMascotas("Nombre");
+        BuscarEliminarMascotas ventanaBuscar = new BuscarEliminarMascotas("Nombre");
         
         ventanaBuscar.setVisible(true);
     }//GEN-LAST:event_botonBuscarNombreActionPerformed
 
     private void botonBuscarEspecieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarEspecieActionPerformed
         // TODO add your handling code here:
-        BuscarMascotas ventanaBuscar = new BuscarMascotas("Especie");
+        BuscarEliminarMascotas ventanaBuscar = new BuscarEliminarMascotas("Especie");
         
         ventanaBuscar.setVisible(true);
     }//GEN-LAST:event_botonBuscarEspecieActionPerformed

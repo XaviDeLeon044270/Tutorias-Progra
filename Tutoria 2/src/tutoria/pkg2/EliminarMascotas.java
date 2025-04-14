@@ -4,6 +4,7 @@
  */
 package tutoria.pkg2;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -33,21 +34,20 @@ public class EliminarMascotas extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        botonBuscarNombre = new javax.swing.JButton();
-        botonBuscarEspecie = new javax.swing.JButton();
+        boton = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 28)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Registrar Mascotas");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Consultar Mascotas");
+        setTitle("Eliminar Mascotas");
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 28)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Consultar Mascotas");
+        jLabel2.setText("Eliminar Mascotas");
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -88,19 +88,40 @@ public class EliminarMascotas extends javax.swing.JFrame {
             model.addRow(new Object[]{nombre, especie, raza, edad, nombreDueno, telefonoDueno});
         }
 
-        botonBuscarNombre.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        botonBuscarNombre.setText("Buscar por Nombre");
-        botonBuscarNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonBuscarNombreActionPerformed(evt);
+        table.getSelectionModel().addListSelectionListener(e -> {
+            if (table.getSelectedRow() != -1) {
+                //Modificar para eliminar en la base de datos
+                int fila = table.getSelectedRow();
+                String nombre = (String) table.getValueAt(fila, 0);
+                String especie = (String) table.getValueAt(fila, 1);
+                String raza = (String) table.getValueAt(fila, 2);
+                int edad = (int) table.getValueAt(fila, 3);
+                String nombreDueno = (String) table.getValueAt(fila, 4);
+                int telefonoDueno = (int) table.getValueAt(fila, 5);
+
+                int respuesta = JOptionPane.showConfirmDialog(this, "¿Desea eliminar a la siguiente Mascota:\nNombre - " + nombre
+                    + "\nEspecie - " + especie
+                    + "\nRaza - " + raza
+                    + "\nEdad - " + edad
+                    + "\nNombre del dueño - " + nombreDueno
+                    + "\nTeléfono del dueño - " + telefonoDueno
+                    , "¿Eliminar Mascota?", JOptionPane.WARNING_MESSAGE);
+                if(respuesta == JOptionPane.YES_OPTION){
+                    Tutoria2.mascotas.remove(fila);
+
+                    DefaultTableModel modelo = (DefaultTableModel) table.getModel();
+                    modelo.removeRow(fila);
+                    modelo.fireTableDataChanged();
+                }
+
             }
         });
 
-        botonBuscarEspecie.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        botonBuscarEspecie.setText("Buscar por Especie");
-        botonBuscarEspecie.addActionListener(new java.awt.event.ActionListener() {
+        boton.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        boton.setText("Eliminar por Nombre");
+        boton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonBuscarEspecieActionPerformed(evt);
+                botonActionPerformed(evt);
             }
         });
 
@@ -110,16 +131,13 @@ public class EliminarMascotas extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(203, 203, 203)
-                        .addComponent(botonBuscarNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(104, 104, 104)
-                        .addComponent(botonBuscarEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 901, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(50, 50, 50)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 901, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(49, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(boton, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(373, 373, 373))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,10 +147,8 @@ public class EliminarMascotas extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonBuscarNombre)
-                    .addComponent(botonBuscarEspecie))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addComponent(boton)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -143,35 +159,27 @@ public class EliminarMascotas extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonBuscarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarNombreActionPerformed
+    private void botonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActionPerformed
         // TODO add your handling code here:
-        BuscarMascotas ventanaBuscar = new BuscarMascotas("Nombre");
+        BuscarEliminarMascotas ventanaBuscar = new BuscarEliminarMascotas("Eliminar");
         
         ventanaBuscar.setVisible(true);
-    }//GEN-LAST:event_botonBuscarNombreActionPerformed
-
-    private void botonBuscarEspecieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarEspecieActionPerformed
-        // TODO add your handling code here:
-        BuscarMascotas ventanaBuscar = new BuscarMascotas("Especie");
-        
-        ventanaBuscar.setVisible(true);
-    }//GEN-LAST:event_botonBuscarEspecieActionPerformed
+    }//GEN-LAST:event_botonActionPerformed
 
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonBuscarEspecie;
-    private javax.swing.JButton botonBuscarNombre;
+    private javax.swing.JButton boton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable table;
+    public static javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }

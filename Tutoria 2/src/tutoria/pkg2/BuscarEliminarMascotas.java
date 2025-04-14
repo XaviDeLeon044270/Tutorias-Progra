@@ -5,27 +5,34 @@
 package tutoria.pkg2;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author xdele
  */
-public class BuscarMascotas extends javax.swing.JFrame {
+public class BuscarEliminarMascotas extends javax.swing.JFrame {
 
     /**
      * Creates new form Buscar
      */
     
-    private String tipoBusqueda;
+    private String tipo;
     
-    public BuscarMascotas(String tipoBusqueda) {
+    public BuscarEliminarMascotas(String tipo) {
         initComponents();
-        setTitle("Buscar por " + tipoBusqueda);
+        if(!tipo.equals("Eliminar")){
+            setTitle("Buscar por " + tipo);
         
-        etiquetaTitulo.setText("Buscar por " + tipoBusqueda + ":");
-        etiquetaCampo.setText("Ingrese " + tipoBusqueda + ":");
+            etiquetaTitulo.setText("Buscar por " + tipo);
+            etiquetaCampo.setText("Ingrese " + tipo + ":");
+        } else {
+            setTitle("Eliminar Mascota por Nombre");
         
-        this.tipoBusqueda = tipoBusqueda;
+            etiquetaTitulo.setText("Eliminar por nombre");
+            etiquetaCampo.setText("Ingrese Nombre:");
+        }
+        this.tipo = tipo;
     }
 
     /**
@@ -118,7 +125,7 @@ public class BuscarMascotas extends javax.swing.JFrame {
         boolean encontrado = false;
         
         // Modificar para buscar en la base de datos
-        if(tipoBusqueda.equals("Nombre")){
+        if(tipo.equals("Nombre")){
             for(Mascota mascota : Tutoria2.mascotas){
                 if(mascota.getNombre().equals(texto)){
                     encontrado = true;
@@ -131,7 +138,7 @@ public class BuscarMascotas extends javax.swing.JFrame {
                             , "Mascota encontrada", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
-        } else if(tipoBusqueda.equals("Especie")){
+        } else if(tipo.equals("Especie")){
             for(Mascota mascota : Tutoria2.mascotas){
                 if(mascota.getEspecie().equals(texto)){
                     encontrado = true;
@@ -144,9 +151,32 @@ public class BuscarMascotas extends javax.swing.JFrame {
                             , "Mascota encontrada", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
+        } else if(tipo.equals("Eliminar")){
+            for (int fila = 0; fila < Tutoria2.mascotas.size(); fila++) {
+                Mascota mascota = Tutoria2.mascotas.get(fila);
+                if(mascota.getNombre().equals(texto)){
+                    encontrado = true;
+                    int respuesta = JOptionPane.showConfirmDialog(this, "¿Desea eliminar a la siguiente Mascota:\nNombre - " + mascota.getNombre()
+                                                                        + "\nEspecie - " + mascota.getEspecie()
+                                                                        + "\nRaza - " + mascota.getEspecie()
+                                                                        + "\nEdad - " + mascota.getEdad()
+                                                                        + "\nNombre del dueño - " + mascota.getDueno().getNombre()
+                                                                        + "\nTeléfono del dueño - " + mascota.getDueno().getTelefono()
+                                                                        , "¿Eliminar Mascota?", JOptionPane.WARNING_MESSAGE);
+                    if(respuesta == JOptionPane.YES_OPTION){
+                        Tutoria2.mascotas.remove(fila);
+
+                        DefaultTableModel modelo = (DefaultTableModel) EliminarMascotas.table.getModel();
+                        modelo.removeRow(fila);
+                        modelo.fireTableDataChanged();
+                    }
+                }
+                
+            }
+            
         }
         if(!encontrado){
-            String mensaje = tipoBusqueda.equals("Nombre")? "el Nombre" : "la Especie";
+            String mensaje = (tipo.equals("Nombre") || tipo.equals("Eliminar"))? "el Nombre" : "la Especie";
             JOptionPane.showMessageDialog(null, "No se encontro ninguna mascota con " + mensaje + ": " + texto, "Error", JOptionPane.ERROR_MESSAGE);
         }
         
